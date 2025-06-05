@@ -147,6 +147,18 @@ def agent_factory(
             use_reasoning=False,
             temperature=config.temperature,
         )
+    elif config.agent_strategy == "sql":
+        # `act` from https://arxiv.org/abs/2210.03629
+        from tau_bench.agents.tool_calling_agent import SQLAgent
+
+        return SQLAgent(
+            tools_info=tools_info,
+            wiki=wiki,
+            model=config.model,
+            provider=config.model_provider,
+            use_reasoning=False,
+            temperature=config.temperature,
+        )
     elif config.agent_strategy == "react":
         # `react` from https://arxiv.org/abs/2210.03629
         from tau_bench.agents.chat_react_agent import ChatReActAgent
